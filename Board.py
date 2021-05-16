@@ -9,7 +9,7 @@ class Board:
         self.queens=[]
         self.currenth=0
         self.minh=0
-
+    #Creates or restarts a board
     def newBoard(self):
         self.board = numpy.zeros((self.n, self.n))
         self.queens=[]
@@ -22,11 +22,12 @@ class Board:
                     self.queens+=[[x,y]]
                     break
         self.currenth=self.calculateH()
-
+    #Calculates h cost
     def calculateH(self):
         h=0
         for i in range(self.n):
             queen = self.queens[i]
+            #Compare with every queens
             for j in range(i+1,self.n):
                 otherqueen=self.queens[j]
                 #Vertical
@@ -39,7 +40,7 @@ class Board:
                 elif abs(queen[0] - otherqueen[0]) == abs(queen[1] - otherqueen[1]):
                     h+=1
         return h
-
+    #Move a queen to another place
     def move(self,oldCoor,newCoor):
         if oldCoor in self.queens:
             if newCoor not in self.queens:
@@ -47,7 +48,6 @@ class Board:
                 self.board[self.queens[index][0]][self.queens[index][1]] = 0
                 self.board[newCoor[0]][[newCoor[1]]] = 1
                 self.queens[index]=newCoor
-
     def hillClimbing(self):
         restart=0
         move=0
@@ -57,9 +57,11 @@ class Board:
             newh =self.currenth
             for i in range(self.n):
                 oldPos = self.queens[i]
+                #Checks every col and row to move
                 for x in range(self.n):
                     for y in range(self.n):
                         self.move(oldPos,[x,y])
+                        #Checks if new board's h is lower than old's
                         h= self.calculateH()
                         if (h<newh):
                             bestMove = (oldPos,x,y)
@@ -69,6 +71,7 @@ class Board:
                 self.newBoard()
                 restart+=1
             else:
+                #Move Queen to bestMove
                 end = time.process_time()
                 self.currenth = newh
                 self.move(bestMove[0],[bestMove[1],bestMove[2]])
