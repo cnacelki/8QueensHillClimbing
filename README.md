@@ -1,0 +1,1 @@
+lütfen.ödevimi.çalmayın
