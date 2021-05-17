@@ -1,4 +1,5 @@
 from Board import Board
+import numpy as np
 restarts=[]
 moves=[]
 times=[]
@@ -14,3 +15,4 @@ for i in range(25):
     print("Time:",time)
 for i in range(25):
     print("Board:{} Restart Count:{} Move Count:{} Time:{}".format(i,restarts[i],moves[i],times[i]))
+print("Mean Values: Restart Count:{} Move Count:{} Time:{}".format(np.mean(restarts),np.mean(moves),np.mean(times)))
